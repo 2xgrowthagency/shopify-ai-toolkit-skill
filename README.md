@@ -65,6 +65,31 @@ The skill prompts the agent to follow a strict **search → code → validate** 
      --revision 1
    ```
 
+## Install via OpenClaw CLI
+
+Any OpenClaw agent can install this skill with one command:
+
+```bash
+# Navigate to your skills directory
+cd ~/.openclaw/agents/YOUR_AGENT/workspace/skills
+
+# Install the skill
+clawhub install shopify-ai-toolkit
+```
+
+This installs the skill to `skills/shopify-ai-toolkit/` in the agent's workspace.
+
+**After installing, restart the gateway for the skill to load:**
+
+```bash
+openclaw gateway restart
+```
+
+That's it. The agent can now use Shopify skills — no manual setup required.
+
+---
+
+
 ## Available Skills
 
 ### shopify-admin
