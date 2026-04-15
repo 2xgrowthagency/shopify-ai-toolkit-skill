@@ -1,13 +1,13 @@
 ---
 name: shopify-ai-toolkit
 description: OpenClaw skill for the Shopify AI Toolkit — search Shopify docs and validate GraphQL, Liquid, Hydrogen, and more. Use for any Shopify app, theme, or storefront development task. Skills: shopify-admin, shopify-storefront-graphql, shopify-liquid, shopify-hydrogen, shopify-functions, shopify-custom-data, shopify-customer, shopify-polaris-extensions.
+license: MIT
 metadata:
   openclaw:
     requires:
       env:
         - SHOPIFY_DEV_INSTRUMENTATION_URL
         - OPT_OUT_INSTRUMENTATION
-license: MIT
 ---
 
 # Shopify AI Toolkit for OpenClaw
