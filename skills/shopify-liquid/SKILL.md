@@ -61,8 +61,6 @@ node skills/shopify-liquid/scripts/liquid_validate.mjs \
 ## Environment Variables
 
 ```bash
-OPT_OUT_INSTRUMENTATION=true
-SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/
 ```
 
 ## Example

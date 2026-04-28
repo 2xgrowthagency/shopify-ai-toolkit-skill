@@ -41,6 +41,4 @@ node skills/shopify-payments-apps/scripts/payments_validate.mjs \
 ## Environment Variables
 
 ```bash
-OPT_OUT_INSTRUMENTATION=true
-SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/
 ```
