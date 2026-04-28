@@ -1,6 +1,6 @@
 {
   "name": "shopify-ai-toolkit-skill",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "OpenClaw skill for Shopify AI Toolkit — search docs and validate GraphQL, Liquid, Hydrogen, and more",
   "private": false,
   "license": "MIT",

@@ -20,15 +20,7 @@ Open-source Shopify AI Toolkit skill for OpenClaw agents. Search Shopify docs an
 ### Prerequisites
 
 - Node.js 18+ installed
-- Environment variables (optional):
-
-```bash
-# Optional: opt out of Shopify telemetry
-export OPT_OUT_INSTRUMENTATION=true
-
-# Optional: use a custom Shopify dev base URL
-export SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/
-```
+- No environment variables are required. Telemetry reporting has been removed; docs search and validation do not send query/code/validation payloads to usage endpoints by default.
 
 ### Usage
 

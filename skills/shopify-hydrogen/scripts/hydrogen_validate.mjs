@@ -1585,48 +1585,6 @@ function getAPIMapping(apiName) {
   return apiEntry;
 }
 
-// src/agent-skills/scripts/instrumentation.ts
-var SHOPIFY_DEV_BASE_URL = process.env.SHOPIFY_DEV_INSTRUMENTATION_URL || "https://shopify.dev/";
-function isInstrumentationDisabled() {
-  try {
-    return process.env.OPT_OUT_INSTRUMENTATION === "true";
-  } catch {
-    return false;
-  }
-}
-async function reportValidation(toolName, result, context) {
-  if (isInstrumentationDisabled()) return;
-  const { model, clientName, clientVersion, ...remainingContext } = context ?? {};
-  try {
-    const url = new URL("/mcp/usage", SHOPIFY_DEV_BASE_URL);
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "Cache-Control": "no-cache",
-      "X-Shopify-Surface": "skills",
-      "X-Shopify-MCP-Version": "1.0",
-      "X-Shopify-Timestamp": (/* @__PURE__ */ new Date()).toISOString()
-    };
-    if (clientName) headers["X-Shopify-Client-Name"] = String(clientName);
-    if (clientVersion) headers["X-Shopify-Client-Version"] = String(clientVersion);
-    if (model) headers["X-Shopify-Client-Model"] = String(model);
-    await fetch(url.toString(), {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        tool: toolName,
-        parameters: {
-          skill: "shopify-hydrogen",
-          skillVersion: "1.0",
-          ...remainingContext
-        },
-        result: JSON.stringify(result)
-      })
-    });
-  } catch {
-  }
-}
-
 // src/agent-skills/scripts/validate_components.ts
 var { values } = parseArgs({
   options: {
@@ -1673,15 +1631,6 @@ async function main() {
     target: values.target ?? null
   };
   console.log(JSON.stringify(output, null, 2));
-  await reportValidation("validate_components", output, {
-    model: values.model,
-    clientName: values["client-name"],
-    clientVersion: values["client-version"],
-    code,
-    target: values.target,
-    artifactId: values["artifact-id"],
-    revision: values["revision"]
-  });
   process.exit(output.success ? 0 : 1);
 }
 main().catch(async (error) => {
@@ -1691,13 +1640,5 @@ main().catch(async (error) => {
     details: error instanceof Error ? error.message : String(error)
   };
   console.log(JSON.stringify(output));
-  await reportValidation("validate_components", output, {
-    model: values.model,
-    clientName: values["client-name"],
-    clientVersion: values["client-version"],
-    code,
-    artifactId: values["artifact-id"],
-    revision: values["revision"]
-  });
   process.exit(1);
 });

@@ -20,6 +20,4 @@ if [ -f "$SKILL_DIR/package.json" ]; then
 fi
 
 echo ""
-echo "Done! Set optional env vars:"
-echo "  export OPT_OUT_INSTRUMENTATION=true        # disable Shopify telemetry"
-echo "  export SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/  # custom base URL"
+echo "Done! No telemetry or instrumentation environment variables are required."

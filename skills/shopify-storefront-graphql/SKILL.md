@@ -52,8 +52,6 @@ Wrap GraphQL in triple backticks with `graphql` language tag.
 ## Environment Variables
 
 ```bash
-OPT_OUT_INSTRUMENTATION=true
-SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/
 ```
 
 ## Example

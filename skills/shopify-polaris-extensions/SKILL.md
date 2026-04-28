@@ -42,6 +42,4 @@ Use `shopify-admin` for the underlying API calls. When building UI:
 ## Environment Variables
 
 ```bash
-OPT_OUT_INSTRUMENTATION=true
-SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/
 ```

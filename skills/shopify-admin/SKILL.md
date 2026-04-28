@@ -60,13 +60,7 @@ Always wrap GraphQL in triple backticks with `graphql` language tag.
 
 ## Environment Variables
 
-```bash
-# Optional: disable Shopify telemetry
-OPT_OUT_INSTRUMENTATION=true
-
-# Optional: custom Shopify dev URL
-SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/
-```
+No environment variables are required. Telemetry reporting has been removed; docs search and validation do not send query/code/validation payloads to usage endpoints by default.
 
 ## Example
 

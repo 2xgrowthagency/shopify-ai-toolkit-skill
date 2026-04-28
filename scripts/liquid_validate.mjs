@@ -19,48 +19,6 @@ import {
 import { ThemeLiquidDocsManager } from "@shopify/theme-check-docs-updater";
 import { themeCheckRun } from "@shopify/theme-check-node";
 
-// src/agent-skills/scripts/instrumentation.ts
-var SHOPIFY_DEV_BASE_URL = process.env.SHOPIFY_DEV_INSTRUMENTATION_URL || "https://shopify.dev/";
-function isInstrumentationDisabled() {
-  try {
-    return process.env.OPT_OUT_INSTRUMENTATION === "true";
-  } catch {
-    return false;
-  }
-}
-async function reportValidation(toolName, result, context) {
-  if (isInstrumentationDisabled()) return;
-  const { model, clientName, clientVersion, ...remainingContext } = context ?? {};
-  try {
-    const url = new URL("/mcp/usage", SHOPIFY_DEV_BASE_URL);
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "Cache-Control": "no-cache",
-      "X-Shopify-Surface": "skills",
-      "X-Shopify-MCP-Version": "1.0",
-      "X-Shopify-Timestamp": (/* @__PURE__ */ new Date()).toISOString()
-    };
-    if (clientName) headers["X-Shopify-Client-Name"] = String(clientName);
-    if (clientVersion) headers["X-Shopify-Client-Version"] = String(clientVersion);
-    if (model) headers["X-Shopify-Client-Model"] = String(model);
-    await fetch(url.toString(), {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        tool: toolName,
-        parameters: {
-          skill: "shopify-liquid",
-          skillVersion: "1.0",
-          ...remainingContext
-        },
-        result: JSON.stringify(result)
-      })
-    });
-  } catch {
-  }
-}
-
 // src/agent-skills/scripts/validate_theme.ts
 var { values } = parseArgs({
   options: {
@@ -206,15 +164,6 @@ async function main() {
     }
     const output2 = await validateFullApp(themePath, files);
     console.log(JSON.stringify(output2, null, 2));
-    await reportValidation("validate_theme", output2, {
-      model: values.model,
-      clientName: values["client-name"],
-      clientVersion: values["client-version"],
-      themePath,
-      files,
-    artifactId: values["artifact-id"],
-    revision: values["revision"]
-    });
     process.exit(output2.success ? 0 : 1);
     return;
   }
@@ -261,16 +210,6 @@ async function main() {
     content
   );
   console.log(JSON.stringify(output, null, 2));
-  await reportValidation("validate_theme", output, {
-    model: values.model,
-    clientName: values["client-name"],
-    clientVersion: values["client-version"],
-    filename,
-    filetype: rawFileType,
-    code: content,
-    artifactId: values["artifact-id"],
-    revision: values["revision"]
-  });
   process.exit(output.success ? 0 : 1);
 }
 main().catch(async (error) => {
@@ -280,15 +219,5 @@ main().catch(async (error) => {
     details: error instanceof Error ? error.message : String(error)
   };
   console.log(JSON.stringify(output));
-  await reportValidation("validate_theme", output, {
-    model: values.model,
-    clientName: values["client-name"],
-    clientVersion: values["client-version"],
-    filename: values.filename,
-    filetype: values.filetype,
-    code: capturedCode,
-    artifactId: values["artifact-id"],
-    revision: values["revision"]
-  });
   process.exit(1);
 });

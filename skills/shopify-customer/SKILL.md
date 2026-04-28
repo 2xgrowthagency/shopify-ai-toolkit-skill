@@ -29,6 +29,4 @@ node skills/shopify-admin/scripts/search_docs.mjs "customerAccount mutation" \
 ## Environment Variables
 
 ```bash
-OPT_OUT_INSTRUMENTATION=true
-SHOPIFY_DEV_INSTRUMENTATION_URL=https://shopify.dev/
 ```
